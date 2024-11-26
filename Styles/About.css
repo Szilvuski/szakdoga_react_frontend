@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+
+.about-container {
+    padding: 2rem;
+    margin: 0 auto;
+    color: indianred;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    min-height: 100vh;
+    background-color: papayawhip
+    ;
+    position: relative; /* For absolute positioning of child elements */
+    overflow: hidden; /* Prevent images from overflowing */
+  }
+  
+  .about-container h2 {
+    color: indianred;
+    font-size: 2rem; /* Növeli a betűméretet a címeknél */
+    font-weight: bold; /* Félkövérre állítja a címeket */
+    margin-bottom: 20px;
+    opacity: 0; /* Kezdetben láthatatlan */
+    transform: translateY(20px); /* Kezdetben lejjebb tolva */
+    animation: fadeIn 0.8s ease-in-out forwards; /* Animáció */
+  }
+
+  .about-container h2:nth-of-type(1) {
+    animation-delay: 0s; /* Első cím animáció késleltetés nélkül */
+  }
+  
+  .about-container h2:nth-of-type(2) {
+    animation-delay: 0.5s; /* Második cím késleltetés */
+  }
+  
+  .about-container h2:nth-of-type(3) {
+    animation-delay: 1s; /* Harmadik cím késleltetés */
+  }
+  
+  .about-container p {
+    font-size: 1.3rem; 
+    line-height: 1.6;
+    font-weight: bold;
+    margin-bottom: 15px;
+    opacity: 0; /* Kezdetben láthatatlan */
+    transform: translateY(20px); /* Kezdetben lejjebb tolva */
+    animation: fadeIn 0.8s ease-in-out forwards; /* Animáció */
+  }
+  
+  .about-container p:nth-of-type(1) {
+    animation-delay: 0.3s;
+  }
+  
+  .about-container p:nth-of-type(2) {
+    animation-delay: 0.6s;
+  }
+  
+  .about-container p:nth-of-type(3) {
+    animation-delay: 0.9s;
+  }
+  
+  .about-container p:nth-of-type(4) {
+    animation-delay: 1.2s;
+  }
+  
+  .about-container p:nth-of-type(5) {
+    animation-delay: 1.5s;
+  }
+  
+  .about-container p:nth-of-type(6) {
+    animation-delay: 1.8s;
+  }
+  
+  .about-container p:last-of-type {
+    margin-bottom: 0; /* Az utolsó bekezdés ne legyen távolabb */
+  }
+  
+  /* Smooth animation for fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
