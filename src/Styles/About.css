@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+
+.about-container {
+    padding: 2rem;
+    margin: 0 auto;
+    font-family: Palatino linotype;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: papayawhip;
+    overflow: hidden;
+}
+
+.final-message {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    background-color: papayawhip;
+    color: indianred;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-top: 3px solid indianred;
+    border-bottom: 3px solid indianred;
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0;
+  }
+
+.about-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 50px 20px;
+}
+
+  .bubble {
+    position: relative;
+    width: 80%;
+    max-width: 1000px;
+    margin-top: 8rem; /* A buborék pozíciójának eltolása lefelé */
+    margin-left: -2rem;
+    padding: 85px;
+    background-color: indianred;
+    border-radius: 50%; /* Buborék hatás */
+    color: papayawhip;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+
+  .bubble h2 {
+    font-size: 2.5rem;
+    color: papayawhip;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+  
+  .bubble p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .bubble:hover {
+    transform: scale(1.05);
+  }
+  
+  .about-container h2 {
+    color: papayawhip;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    opacity: 0; 
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-in-out forwards;
+  }
+
+  .about-container h2:nth-of-type(1) {
+    animation-delay: 0s;
+  }
+  
+  .about-container h2:nth-of-type(2) {
+    animation-delay: 0.5s;
+  }
+  
+  .about-container h2:nth-of-type(3) {
+    animation-delay: 1s; /* Harmadik cím késleltetés */
+  }
+  
+  .about-container p {
+    font-size: 1.3rem; 
+    line-height: 1.6;
+    font-weight: bold;
+    margin-bottom: 15px;
+    opacity: 0; /* Kezdetben láthatatlan */
+    transform: translateY(20px); /* Kezdetben lejjebb tolva */
+    animation: fadeIn 0.8s ease-in-out forwards; /* Animáció */
+  }
+  
+  .about-container p:nth-of-type(1) {
+    animation-delay: 0.3s;
+  }
+  
+  .about-container p:nth-of-type(2) {
+    animation-delay: 0.6s;
+  }
+  
+  .about-container p:nth-of-type(3) {
+    animation-delay: 0.9s;
+  }
+  
+  .about-container p:nth-of-type(4) {
+    animation-delay: 1.2s;
+  }
+  
+  .about-container p:nth-of-type(5) {
+    animation-delay: 1.5s;
+  }
+  
+  .about-container p:nth-of-type(6) {
+    animation-delay: 1.8s;
+  }
+  
+  .about-container p:last-of-type {
+    margin-bottom: 0; /* Az utolsó bekezdés ne legyen távolabb */
+  }
+  
+  /* Fade-in animáció */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .divider-image.first{
+    width: 100%; /* Teljes szélesség */
+    height: auto; /* Arányos magasság */
+    margin: 20px 0; /* Távolság a szövegtől */
+    display: block; /* Képek sorban jelenjenek meg */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
+    animation: fadeIn 1s ease-in-out forwards; /* Simán megjelennek */
+    opacity: 0;
+  }
