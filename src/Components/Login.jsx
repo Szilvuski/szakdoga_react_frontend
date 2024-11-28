@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../Styles/LoginRegister.css';
+import '../Styles/Login.css';
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { FaEnvelope } from "react-icons/fa";

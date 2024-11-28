@@ -103,3 +103,47 @@
     top: 4%;
     left: 3%;
 }
+
+.user-icon-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+  }
+  
+  .user-icon {
+    font-size: 2.5rem; /* Méret az ikonhoz */
+    color: indianred; /* Szín az ikonhoz */
+    cursor: pointer; /* Mutatószöveg váltás mutató kézre */
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .user-icon:hover {
+    transform: scale(1.1); /* Ikon méretének növelése hover alatt */
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background-color: indianred;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+  }
+  
+  .dropdown-menu a {
+    text-decoration: none;
+    color: white;
+    margin: 5px 0;
+    font-size: 1rem;
+  }
+  
+  .dropdown-menu a:hover {
+    text-decoration: underline;
+  }
+  

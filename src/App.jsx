@@ -6,7 +6,8 @@ import Menu from './Components/Menu.jsx';
 import About from './Components/About.jsx';
 import Contact from './Components/Contact.jsx';
 import Booking from './Components/Booking.jsx';
-import LoginRegister from './Components/LoginRegister.jsx';
+import Login from './Components/Login.jsx';
+import Register from './Components/Register.jsx';
 import Services from './Components/Services.jsx';
 import Sitters from './Components/Sitters.jsx';
 import './Styles/App.css';
@@ -25,7 +26,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/loginregister" element={<LoginRegister />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/services" element={<Services />} />
           <Route path="/sitters" element={<Sitters />} />      
       </Routes>

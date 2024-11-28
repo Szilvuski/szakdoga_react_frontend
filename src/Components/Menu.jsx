@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaUser } from "react-icons/fa";
 import '../Styles/Menu.css';
 
 import image1 from '../assets/illustrations/image1.png';
@@ -16,6 +17,25 @@ import image10 from '../assets/illustrations/image10.png';
 const Menu = () => {
 
   const images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10];
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const closeDropdown = (e) => {
+    if (!e.target.closest(".user-icon-container")) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", closeDropdown);
+    return () => {
+      document.removeEventListener("click", closeDropdown);
+    };
+  }, []);
   
   return(
     <div className="menu">
@@ -24,10 +44,21 @@ const Menu = () => {
           <li><Link to="/about">Rólunk</Link></li>
           <li><Link to="/contact">Kapcsolat</Link></li>
           <li><Link to="/booking">Foglalás</Link></li>
-          <li><Link to="/loginregister">Bejelentkezés</Link></li>
           <li><Link to="/services">Szolgáltatások</Link></li>
           <li><Link to="/sitters">Szittereink</Link></li>
       </ul>
+
+      {/* User Icon and Dropdown */}
+      <div className="user-icon-container">
+        <FaUser className="user-icon" onClick={toggleDropdown} />
+        {showDropdown && (
+          <div className="dropdown-menu">
+            <Link to="/login">Bejelentkezés</Link>
+            <Link to="/register">Regisztráció</Link>
+          </div>
+        )}
+      </div>
+
       {images.map((src, index) => (
         <img
           key={index}
