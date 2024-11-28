@@ -25,7 +25,7 @@ const Sitters = () => {
                     <div key={index} className="sitter-card">
                         <h2>{sitter.sitterName}</h2>
                         <p>{sitter.description}</p>
-                        <p><strong>Elsődlegesen megbízásokat vállalnak:</strong> {sitter.location} területén belül</p>
+                        <p><strong>Elsődlegesen megbízásokat vállal:</strong> {sitter.location} területén belül</p>
                     </div>
                 ))
             ) : (

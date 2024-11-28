@@ -18,8 +18,12 @@ function App() {
   const location = useLocation();
 
   return (
-    <TransitionGroup>
-      <CSSTransition key={location.key} timeout={500} classNames="fade">
+    <TransitionGroup component={null}>
+      <CSSTransition
+        key={location.pathname} // Animáció alapja az útvonal
+        timeout={500}
+        classNames="fade"
+      >
         <Routes>      
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />

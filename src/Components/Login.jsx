@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/Login.css';
 import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const LoginRegister = () => {
-
+const Login = () => {
     const [action, setAction] = useState('');
+    const navigate = useNavigate(); // Initialize navigate function
 
     const [isLogin, setIsLogin] = useState(true);
-
-    const toggleForm = () => {
-        setIsLogin(!isLogin); // Váltás bejelentkezés és regisztráció között
-    };    
 
     useEffect(() => {
         // Add the class to the body when the component mounts
@@ -21,90 +17,38 @@ const LoginRegister = () => {
         return () => document.body.classList.remove('login-register');
     }, []);
 
-    const registerLink = () => {
-        setAction(' active');
-    };
-
     const loginLink = () => {
         setAction('');
-    };
+    };    
 
     return (
-        <div className={`wrapper${action}`}>
-            {isLogin ? (
-                <div className="form-box login">
-                    <form>
-                        <h1>Bejelentkezés</h1>
-                        <div className="input-box">
-                            <input type="text" placeholder="Felhasználónév" required />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input type="password" placeholder="Jelszó" required />
-                            <FaLock className="icon" />
-                        </div>
-                        <div className="remember-forgot">
-                            <label>
-                                <input type="checkbox" />
-                                Emlékezz rám
-                            </label>
-                            <a href="#">Elfelejtett jelszó?</a>
-                        </div>
-                        <button type="submit">Bejelentkezés</button>
-                        <div className="register-link">
-                            <p>
-                                Nincs még fiókja?{' '}
-                                <a href="#" onClick={toggleForm}>
-                                    Regisztráljon!
-                                </a>
-                            </p>
-                        </div>
-                    </form>
+        <div className="login-container">
+            <h2>Bejelentkezés</h2>
+            <form>
+                <div className="input-box">
+                    <input type="text" placeholder="Felhasználónév" required />
+                    <FaUser className="icon" />
                 </div>
-            ) : (
-                <div className="form-box register">
-                    <form>
-                        <h1>Regisztráció</h1>
-                        <div className="input-box">
-                            <input type="text" placeholder="Teljes név" required />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input type="text" placeholder="Felhasználónév" required />
-                            <FaUser className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input type="email" placeholder="Email" required />
-                            <FaEnvelope className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input type="password" placeholder="Jelszó" required />
-                            <FaLock className="icon" />
-                        </div>
-                        <div className="input-box">
-                            <input type="password" placeholder="Jelszó újra" required />
-                            <FaLock className="icon" />
-                        </div>
-                        <div className="remember-forgot">
-                            <label>
-                                <input type="checkbox" />
-                                Elfogadom az általános szerződési feltételeket
-                            </label>
-                        </div>
-                        <button type="submit">Regisztráció</button>
-                        <div className="register-link">
-                            <p>
-                                Van már fiókja?{' '}
-                                <a href="#" onClick={toggleForm}>
-                                    Bejelentkezés
-                                </a>
-                            </p>
-                        </div>
-                    </form>
+                <div className="input-box">
+                    <input type="password" placeholder="Jelszó" required />
+                    <FaLock className="icon" />
                 </div>
-            )}
+                <div className="remember-forgot">
+                    <label>
+                        <input type="checkbox" />
+                        Emlékezz rám
+                    </label>
+                    <a href="#">Elfelejtett jelszó?</a>
+                </div>
+                <button type="submit">Bejelentkezés</button>
+                <div className="register-link">
+                    <p>
+                        Nincs még fiókja?{' '}
+                        <button onClick={() => navigate('/register')}>Regisztráljon!</button>
+                    </p>
+                </div>
+            </form>
         </div>
     );
 };
-
-export default LoginRegister;
+export default Login;

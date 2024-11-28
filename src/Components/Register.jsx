@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../Styles/Register.css';
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { BiIdCard } from "react-icons/bi";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -59,6 +61,7 @@ const Register = () => {
         <div className="register-container">
             <h2>Regisztráció</h2>
             <form onSubmit={handleSubmit}>
+                <div className="input-box">
                 <input
                     type="text"
                     name="fullname"
@@ -67,6 +70,9 @@ const Register = () => {
                     onChange={handleChange}
                     required
                 />
+                <BiIdCard className="icon" />
+                </div>
+                <div className="input-box">
                 <input
                     type="text"
                     name="username"
@@ -75,30 +81,41 @@ const Register = () => {
                     onChange={handleChange}
                     required
                 />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Jelszó"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Jelszó újra"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                />
+                <FaUser className="icon" />
+                </div>                
+                <div className="input-box">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <FaEnvelope className="icon" />
+                </div>
+                <div className="input-box">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Jelszó"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                    <FaLock className="icon" />
+                </div>
+                <div className="input-box">
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Jelszó újra"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
+                    />
+                    <FaLock className="icon" />
+                </div>
                 <button type="submit">Regisztráció</button>
             </form>
             {message && <p>{message}</p>}
