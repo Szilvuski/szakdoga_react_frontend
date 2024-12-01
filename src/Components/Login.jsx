@@ -1,36 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import '../Styles/Login.css';
-import { FaUser } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate} from 'react-router-dom';
 
-const Login = () => {
-    const [action, setAction] = useState('');
-    const navigate = useNavigate(); // Initialize navigate function
-
-    const [isLogin, setIsLogin] = useState(true);
+const Login = (props) => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Add the class to the body when the component mounts
         document.body.classList.add('login-register');
-        // Remove the class from the body when the component unmounts
         return () => document.body.classList.remove('login-register');
     }, []);
 
-    const loginLink = () => {
-        setAction('');
-    };    
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        fetch("http://127.0.0.1:8000/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: formData.email,
+                password: formData.password,
+            }),
+        })
+            .then((response) => response.json().then(data => ({ status: response.status, body: data })))
+            .then((data) => {
+                if (data.status === 200) {
+                    setMessage(data.body.message);
+                    props.setLoggedin(true);
+                    navigate('/menu');
+                    // Itt kezelheted a sikeres bejelentkezést (pl. átirányítás)
+                    // Példa:
+                    // localStorage.setItem('user_id', data.body.user_id);
+                    // navigate('/dashboard');
+                } else {
+                    setMessage(data.body.error || 'Hiba történt a bejelentkezés során!');
+                }
+            })
+            .catch((error) => {
+                setMessage("Hiba történt a bejelentkezés során!");
+            });
+    };
 
     return (
         <div className="login-container">
             <h2>Bejelentkezés</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="input-box">
-                    <input type="text" placeholder="Felhasználónév" required />
-                    <FaUser className="icon" />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="E-mail cím"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <FaEnvelope className="icon" />
                 </div>
                 <div className="input-box">
-                    <input type="password" placeholder="Jelszó" required />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Jelszó"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
                     <FaLock className="icon" />
                 </div>
                 <div className="remember-forgot">
@@ -44,11 +93,19 @@ const Login = () => {
                 <div className="register-link">
                     <p>
                         Nincs még fiókja?{' '}
-                        <button onClick={() => navigate('/register')}>Regisztráljon!</button>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/register')}
+                            style={{ background: 'none', border: 'none', color: 'indianred', cursor: 'pointer' }}
+                        >
+                            Regisztráljon!
+                        </button>
                     </p>
                 </div>
             </form>
+            {message && <p>{message}</p>}
         </div>
     );
 };
+
 export default Login;

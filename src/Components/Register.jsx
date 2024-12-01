@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Styles/Register.css';
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { BiIdCard } from "react-icons/bi";
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -21,6 +22,8 @@ const Register = () => {
         });
     };
 
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -51,6 +54,7 @@ const Register = () => {
         })
         .then(data => {
             setMessage(data.message || 'Regisztráció sikeres!');
+            navigate('/menu');
         })
         .catch(error => {
             setMessage(error.message);

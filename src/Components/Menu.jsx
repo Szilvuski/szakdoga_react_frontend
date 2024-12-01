@@ -14,9 +14,11 @@ import image8 from '../assets/illustrations/image8.png';
 import image9 from '../assets/illustrations/image9.png';
 import image10 from '../assets/illustrations/image10.png';
 
-const Menu = () => {
+const Menu = (props) => {
 
   const images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10];
+
+  console.log(props.loggedIn)
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -40,6 +42,7 @@ const Menu = () => {
   return(
     <div className="menu">
       <h1>Kérjük válasszon az alábbi lehetőségek közül</h1>
+      <h2>logged state : {props.loggedIn? "loggedIn" : "notLoggedIn"}</h2>
       <ul>
           <li><Link to="/about">Rólunk</Link></li>
           <li><Link to="/contact">Kapcsolat</Link></li>
@@ -51,10 +54,15 @@ const Menu = () => {
       {/* User Icon and Dropdown */}
       <div className="user-icon-container">
         <FaUser className="user-icon" onClick={toggleDropdown} />
-        {showDropdown && (
+        {(showDropdown && props.loggedIn==false) &&(
           <div className="dropdown-menu">
             <Link to="/login">Bejelentkezés</Link>
             <Link to="/register">Regisztráció</Link>
+          </div>
+        )}
+        {(showDropdown && props.loggedIn) &&(
+          <div className="dropdown-menu">
+            <Link to="/menu" onClick={() => props.setLoggedin(false)}>Kijelentkezés</Link>
           </div>
         )}
       </div>

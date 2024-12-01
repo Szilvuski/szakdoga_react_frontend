@@ -12,10 +12,12 @@ import Services from './Components/Services.jsx';
 import Sitters from './Components/Sitters.jsx';
 import './Styles/App.css';
 import './Styles/Transitions.css';
+import { useState } from 'react';
 
 function App() {
 
   const location = useLocation();
+  const [loggedIn, setLoggedin] = useState(false);
 
   return (
     <TransitionGroup component={null}>
@@ -26,11 +28,11 @@ function App() {
       >
         <Routes>      
           <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<Menu />} />
+          <Route path="/menu" element={<Menu loggedIn={loggedIn} setLoggedin={setLoggedin} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/booking" element={<Booking loggedIn={loggedIn}/>} />
+          <Route path="/login" element={<Login loggedIn={loggedIn} setLoggedin={setLoggedin}/>}  />
           <Route path="/register" element={<Register />} />
           <Route path="/services" element={<Services />} />
           <Route path="/sitters" element={<Sitters />} />      
