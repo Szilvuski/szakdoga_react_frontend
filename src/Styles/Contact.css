@@ -1,0 +1,75 @@
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: papayawhip; /* Az egész oldal háttérszíne */
+    padding: 20px;
+}
+
+.contact-container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: indianred;
+    margin-bottom: 20px;
+}
+
+.contact-container p {
+    max-width: 800px;
+    font-size: 1.03rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.admin-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.admin-table th, .admin-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.admin-table th {
+    background-color: indianred;
+    color: white;
+    text-align: center;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.admin-table tr:hover {
+    background-color: #ddd;
+}
+
+.contact-image {
+    position: absolute;
+    width: 250px; /* A kép mérete */
+    height: 250px;
+    border-radius: 50%; /* Kör alak */
+    object-fit: contain; /* A teljes kép megjelenik */
+    background-color: white; /* Fehér háttér a buborékhoz */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Finom árnyékhatás */
+    z-index: 1; /* A kép a tartalom fölött helyezkedjen el */
+}
+
+.contact-image.left {
+    top: 50px; /* Távolság a tetejétől */
+    left: 20px; /* Távolság az oldal szélétől */
+}
+
+.contact-image.right {
+    top: 50px; /* Távolság a tetejétől */
+    right: 20px; /* Távolság az oldal szélétől */
+}
+
+
+
