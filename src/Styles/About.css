@@ -36,33 +36,64 @@
     padding: 50px 20px;
 }
 
-  .bubble {
-    position: relative;
-    width: 80%;
-    max-width: 1000px;
-    margin-top: 8rem; /* A buborék pozíciójának eltolása lefelé */
-    margin-left: -2rem;
-    padding: 85px;
-    background-color: indianred;
-    border-radius: 50%; /* Buborék hatás */
-    color: papayawhip;
-    text-align: center;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
-  
+.bubble-first {
+  position: relative;
+  width: 87%;
+  max-width: 950px;
+  margin-top: 6rem;
+  padding: 70px;
+  background-color: indianred;
+  border-radius: 50%;
+  color: papayawhip;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-30px); /* Egyedi pozíció */
+  transition: transform 0.3s ease;
+}
 
-  .bubble h2 {
-    font-size: 2.5rem;
-    color: papayawhip;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+.bubble-second {
+  position: relative;
+  width: 75%;
+  max-width: 950px;
+  margin-top: 6rem;
+  padding: 70px;
+  background-color: indianred;
+  border-radius: 50%;
+  color: papayawhip;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px); /* Egyedi pozíció */
+  transition: transform 0.3s ease;
+}
+
+.bubble-third {
+  position: relative;
+  width: 75%;
+  max-width: 950px;
+  margin-top: 6rem;
+  padding: 70px;
+  background-color: indianred;
+  border-radius: 50%;
+  color: papayawhip;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px); /* Egyedi pozíció */
+  transition: transform 0.3s ease;
+}
+
+.bubble-first h2,
+.bubble-second h2,
+.bubble-third h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
 }
   
-  .bubble p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-  }
+.bubble-first p,
+.bubble-second p,
+.bubble-third p {
+    font-size: 1rem;
+    line-height: 1.4;
+}
   
   .bubble:hover {
     transform: scale(1.05);
@@ -140,12 +171,38 @@
     }
   }
 
-  .divider-image.first{
-    width: 100%; /* Teljes szélesség */
-    height: auto; /* Arányos magasság */
-    margin: 20px 0; /* Távolság a szövegtől */
-    display: block; /* Képek sorban jelenjenek meg */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
+  .divider-image {
+    position: absolute;
+    width: 300px; /* Nagyobb méret */
+    height: 300px; /* Arányos magasság */
+    border-radius: 50%; /* Buborékhatás */
+    object-fit: cover; /* A kép kitöltése a körben */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Enyhe árnyék */
     animation: fadeIn 1s ease-in-out forwards; /* Simán megjelennek */
-    opacity: 0;
-  }
+    opacity: 0; /* Kezdetben láthatatlan */
+}
+
+.divider-image.first {
+  top: 20px;
+  right: 20px;
+}
+
+.divider-image.second {
+  top: 60%;
+  left: 20px;
+}
+
+.divider-image.third {
+  top: 120%;
+  right: 20px;
+}
+
+.divider-image.fourth {
+  top: 180%;
+  left: 20px;
+}
+
+.divider-image.fifth {
+  top: 240%;
+  right: 20px;
+}

@@ -14,7 +14,7 @@ export const About = () => {
         <img src={kep1} alt="Divider 1" className="divider-image first" />
         {/* Section 1 */}
         <section className="about-section">
-            <div className="bubble first">
+            <div className="bubble-first">
                 <h2>Tevékenységünk</h2>
                 <p>
                 Üdvözlünk a kisállatok paradicsomában! Csapatunk egyéni vállalkozók lelkes gyülekezete, akik szenvedéllyel és odaadással vállalják kedvenceid gondozását, amikor te éppen máshol vagy.
@@ -29,7 +29,7 @@ export const About = () => {
         <img src={kep2} alt="Divider 1" className="divider-image second" />
         {/* Section 2 */}
         <section className="about-section">
-            <div className="bubble second">
+            <div className="bubble-second">
                 <h2>Felvesszük a versenyt!</h2>
                 <p>
                 Pénztárcabarát szolgáltatás? Pipa. Vidéki kisállatok gondozása, ahol a madár se jár? Megoldjuk.
@@ -44,7 +44,7 @@ export const About = () => {
         <img src={kep3} alt="Divider 1" className="divider-image third" />
         {/* Section 3 */}
         <section className="about-section">
-            <div className="bubble third">
+            <div className="bubble-third">
                 <h2>Hogyan dolgozunk?</h2>
                 <p>
                 Az állatok jólétét mindenek fölé helyezzük, ez az első és legfontosabb szabályunk. Minden egyes feladatot tisztán, pontosan és korrekten végzünk, mert számunkra a gazdi elégedettsége ugyanolyan fontos, mint a kisállat boldogsága.
@@ -61,6 +61,7 @@ export const About = () => {
         </div>
         {/* Divider Image */}
         <img src={kep4} alt="Divider 1" className="divider-image fourth" />
+        <img src={kep5} alt="Divider 1" className="divider-image fifth" />
     </div>
   );
 };
