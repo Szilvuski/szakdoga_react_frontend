@@ -1,0 +1,57 @@
+.sitters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: papayawhip;
+    padding: 20px;
+    position: relative;
+}
+
+.sitters-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: indianred;
+    margin-bottom: 20px;
+}
+
+.sitters-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.sitters-table th,
+.sitters-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.sitters-table th {
+    background-color: indianred;
+    color: white;
+    text-align: center;
+}
+
+.sitters-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.sitters-table tr:hover {
+    background-color: #ddd;
+}
+
+.sitter-image {
+    width: 120px; /* Adjusted size for better visibility */
+    height: 90px; /* Rectangle proportions */
+    border-radius: 10px; /* Slightly rounded corners */
+    object-fit: cover; /* Ensure the entire image fits the rectangle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better visual appeal */
+    margin: 10px auto; /* Center the image within the cell */
+    display: block; /* Ensure the image behaves as a block-level element */
+}
+
+
