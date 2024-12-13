@@ -5,6 +5,7 @@ import kep2 from '../assets/kep2.jpg';
 import kep3 from '../assets/kep3.jpg';
 import kep4 from '../assets/kep4.jpg';
 import kep5 from '../assets/kep5.jpg';
+import HomeIcon from "../Components/HomeIcon";
 
 
 export const About = () => {
@@ -62,6 +63,7 @@ export const About = () => {
         {/* Divider Image */}
         <img src={kep4} alt="Divider 1" className="divider-image fourth" />
         <img src={kep5} alt="Divider 1" className="divider-image fifth" />
+        <HomeIcon />
     </div>
   );
 };

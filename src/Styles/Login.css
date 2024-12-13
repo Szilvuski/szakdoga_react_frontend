@@ -52,7 +52,23 @@ form input:focus {
 
 .input-box {
     position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-box input {
     width: 100%;
+    padding: 12px 40px 12px 10px; /* Space for the icon on the right */
+    border: none;
+    border-radius: 25px;
+    background-color: #fcb8b8;
+    color: white;
+    
+    font-size: 1rem;
+    outline: none;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center; 
 }
 
 .input-box .icon {
@@ -63,6 +79,14 @@ form input:focus {
     color: white;
     font-size: 1.2rem;
     pointer-events: none; /* Az ikon ne legyen kattintható */
+}
+
+.login-container .input-box .icon {
+    position: absolute;
+    right: 15px; /* Ensure it's positioned relative to the right of the container */
+    font-size: 20px;
+    color: white;
+    pointer-events: none;
 }
 
 form label {
@@ -125,4 +149,50 @@ form .remember-forgot label {
 
 form .remember-forgot input {
     margin-right: 5px;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(250, 235, 215, 0.9); /* Világos krémszínű átlátszó háttér */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Popup tartalom */
+.popup-content {
+    background: #fff5e4; /* Ugyanolyan világos árnyalatú háttér */
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup szöveg */
+.popup-content p {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #d96666; /* Pirosas szín a szöveghez */
+}
+
+/* Gombok a popupban */
+.popup-content button {
+    padding: 10px 20px;
+    background: #d96666; /* Gomb háttérszíne */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.popup-content button:hover {
+    background: #b55454; /* Gomb szín sötétebb árnyalata hover esetén */
 }

@@ -10,6 +10,7 @@ import woman4 from '../assets/woman4.jpg';
 import woman5 from '../assets/woman5.jpg';
 import woman6 from '../assets/woman6.jpg';
 import woman7 from '../assets/woman7.jpg';
+import HomeIcon from "../Components/HomeIcon";
 
 const Sitters = () => {
     const [sitters, setSitters] = useState([]);
@@ -78,6 +79,7 @@ const Sitters = () => {
                     )}
                 </tbody>
             </table>
+            <HomeIcon />
         </div>
     );
 };

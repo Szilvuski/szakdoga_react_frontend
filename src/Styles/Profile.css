@@ -1,0 +1,115 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: papayawhip;
+  padding: 20px;
+}
+
+.profile-container h2 {
+  font-size: 2.5rem;
+  color: indianred;
+  margin-bottom: 20px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #ffe5e5;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 25px;
+  background-color: #fcb8b8;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.input-box input:disabled {
+  background-color: #fcb8b8;
+}
+
+.icon-left {
+  position: absolute;
+  left: 15px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.icon-right {
+  position: absolute;
+  right: 15px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: indianred;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #e67e7e;
+}
+
+.logout-btn {
+  margin-top: 20px;
+  background-color: indianred;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #e67e7e;
+}
+
+.message {
+  color: black; /* Use red if the message indicates an error */
+  font-size: 25px;
+  margin-top: 10px; /* Adds space between the message and Logout button */
+  text-align: center;
+}
+
+.user-id-display {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f5f5f5; /* Light gray background */
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333; /* Dark gray text */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}

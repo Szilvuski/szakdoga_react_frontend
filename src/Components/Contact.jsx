@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../Styles/Contact.css';
 import contact1 from '../assets/contact1.jpeg';
 import contact2 from '../assets/contact2.jpeg';
+import HomeIcon from "../Components/HomeIcon";
 
 const Contact = () => {
     const [admins, setAdmins] = useState([]);
@@ -67,6 +68,7 @@ const Contact = () => {
             ) : (
                 <p>Adatok betöltése...</p>
             )}
+            <HomeIcon />
         </div>
     );
 };

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../Styles/Login.css';
-import { FaEnvelope } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import { useNavigate} from 'react-router-dom';
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import HomeIcon from "../Components/HomeIcon";
 
 const Login = (props) => {
     const [formData, setFormData] = useState({
@@ -10,12 +10,8 @@ const Login = (props) => {
         password: '',
     });
     const [message, setMessage] = useState('');
+    const [showPopup, setShowPopup] = useState(false); 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.body.classList.add('login-register');
-        return () => document.body.classList.remove('login-register');
-    }, []);
 
     const handleChange = (e) => {
         setFormData({
@@ -40,20 +36,35 @@ const Login = (props) => {
             .then((response) => response.json().then(data => ({ status: response.status, body: data })))
             .then((data) => {
                 if (data.status === 200) {
-                    setMessage(data.body.message);
-                    props.setLoggedin(true);
-                    navigate('/menu');
-                    // Itt kezelheted a sikeres bejelentkezést (pl. átirányítás)
-                    // Példa:
-                    // localStorage.setItem('user_id', data.body.user_id);
-                    // navigate('/dashboard');
+                    props.setLoggedin(true); // Update loggedIn state
+                    props.onLogin({ user_id: data.body.user_id, fullname: data.body.fullname });
+
+                    const redirectTo = localStorage.getItem("redirectTo");
+                    if (redirectTo === "booking") {
+                        setMessage(`Üdvözöllek, ${formData.email}!`);
+                        setShowPopup(true);
+                    } else {
+                        setMessage(`Üdvözöllek, ${formData.email}!`);
+                        setShowPopup(true);
+                    }
                 } else {
-                    setMessage(data.body.error || 'Hiba történt a bejelentkezés során!');
+                    setMessage(data.body.error || "Hiba történt a bejelentkezés során!");
                 }
             })
-            .catch((error) => {
+            .catch(() => {
                 setMessage("Hiba történt a bejelentkezés során!");
             });
+    };
+
+    const handlePopupClose = () => {
+        setShowPopup(false);
+        const redirectTo = localStorage.getItem("redirectTo");
+        if (redirectTo === "booking") {
+            localStorage.removeItem("redirectTo"); // Clear the redirect flag
+            navigate("/booking"); // Redirect to booking
+        } else {
+            navigate("/menu"); // Default redirection
+        }
     };
 
     return (
@@ -104,6 +115,20 @@ const Login = (props) => {
                 </div>
             </form>
             {message && <p>{message}</p>}
+
+            {showPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <p>{message}</p>
+                        <button onClick={handlePopupClose}>
+                            {localStorage.getItem("redirectTo") === "booking"
+                                ? "Tovább a foglalási oldalra"
+                                : "Tovább a menübe"}
+                        </button>
+                    </div>
+                </div>
+            )}
+            <HomeIcon />
         </div>
     );
 };

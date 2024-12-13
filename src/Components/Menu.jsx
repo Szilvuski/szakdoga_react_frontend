@@ -62,6 +62,8 @@ const Menu = (props) => {
         )}
         {(showDropdown && props.loggedIn) &&(
           <div className="dropdown-menu">
+            <Link to="/profile">Személyes adataim</Link>
+            <Link to="/pets">Rögzített kisállataim</Link>
             <Link to="/menu" onClick={() => props.setLoggedin(false)}>Kijelentkezés</Link>
           </div>
         )}

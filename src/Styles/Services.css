@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: papayawhip;
+}
+
+.services-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: papayawhip;
+    padding: 20px;
+    position: relative;
+}
+
+.services-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: indianred;
+    margin-bottom: 20px;
+}
+
+.services-description {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.services-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.services-table th,
+.services-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.services-table th {
+    background-color: indianred;
+    color: white;
+    text-align: center;
+}
+
+.services-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.services-table tr:hover {
+    background-color: #ffe6e6;
+}
+
+.services-table td, 
+.services-table th {
+    border: 1px solid #ddd;
+}
+
+.services-table td:first-child {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .services-container {
+        padding: 10px;
+    }
+
+    .services-title {
+        font-size: 28px;
+    }
+
+    .services-description {
+        font-size: 16px;
+    }
+
+    .services-table th, 
+    .services-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

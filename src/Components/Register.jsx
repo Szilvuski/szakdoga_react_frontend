@@ -3,6 +3,7 @@ import '../Styles/Register.css';
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { BiIdCard } from "react-icons/bi";
 import { useNavigate } from 'react-router-dom';
+import HomeIcon from "../Components/HomeIcon";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -75,7 +76,7 @@ const Register = () => {
                     required
                 />
                 <BiIdCard className="icon" />
-                </div>
+                </div>                
                 <div className="input-box">
                 <input
                     type="text"
@@ -123,6 +124,7 @@ const Register = () => {
                 <button type="submit">Regisztráció</button>
             </form>
             {message && <p>{message}</p>}
+            <HomeIcon />
         </div>
     );
 };
