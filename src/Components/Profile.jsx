@@ -3,10 +3,11 @@ import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { BiIdCard } from "react-icons/bi";
 import { FaPencil } from "react-icons/fa6";
 import "../Styles/Profile.css";
+import PawIcon from "../Components/PawIcon";
 
 const Profile = ({ user, onLogout, setUser }) => {
-  const [editingField, setEditingField] = useState(null);
-  const [newData, setNewData] = useState("");
+  const [editingFields, setEditingFields] = useState([]); // Track fields being edited
+  const [newData, setNewData] = useState({});
   const [message, setMessage] = useState(""); // Feedback message
   const [userData, setUserData] = useState({
     fullname: user?.fullname || "John Doe",
@@ -27,23 +28,18 @@ const Profile = ({ user, onLogout, setUser }) => {
   }, [user]);
 
   const handleEdit = (field) => {
-    setEditingField(field);
-    setNewData(""); // Reset the input field
-    setMessage(""); // Clear any previous messages
+    if (!editingFields.includes(field)) {
+      setEditingFields([...editingFields, field]); // Add field to editing list
+      setNewData({ ...newData, [field]: "" }); // Initialize new data for this field
+    }
   };
 
-  const handleChange = (e) => {
-    setNewData(e.target.value);
+  const handleChange = (field, value) => {
+    setNewData({ ...newData, [field]: value }); // Update new data for the field
   };
 
   const handleSave = () => {
-    if (!newData) {
-      setMessage("Az új mező nem lehet üres!");
-      return;
-    }
-
-    const updatedUser = { ...user, [editingField]: newData };
-
+    const updatedUser = { ...user, ...newData };
 
     fetch(`http://127.0.0.1:8000/user/${user.user_id}`, {
       method: "PUT",
@@ -52,17 +48,15 @@ const Profile = ({ user, onLogout, setUser }) => {
     })
       .then((response) => {
         if (response.ok) {
-          setUserData((prevData) => ({
-            ...prevData,
-            [editingField]: newData,
-          }));
+          setUserData({ ...userData, ...newData });
           setUser(updatedUser);
           setMessage("Adatok sikeresen módosítva!");
-      } else {
-        setMessage("Hiba történt az adatok mentése során.");
-      }
-      setEditingField(null); // Exit editing mode
-    })
+          setEditingFields([]); // Clear editing list
+          setNewData({}); // Clear new data
+        } else {
+          setMessage("Hiba történt az adatok mentése során.");
+        }
+      })
       .catch((error) => {
         console.error("Error updating user data:", error);
         setMessage("Hiba történt az adatok mentése során.");
@@ -73,94 +67,131 @@ const Profile = ({ user, onLogout, setUser }) => {
     <div className="profile-container">
       <div className="user-id-display">
         <p>ID: {user?.user_id}</p>
-        </div>
-      <h2>Személyes adatok</h2>      
+      </div>
+      <h2>Személyes adatok</h2>
       <p>Szükség esetén az alábbi mezőkben tudod szerkeszteni személyes adataidat.</p>
       <div className="profile-form">
-      <div className="input-box">
-          <BiIdCard className="icon-left" />
-          <input
-            type="text"
-            value={editingField === "fullname" ? newData : userData.fullname}
-            disabled={editingField !== "fullname"}
-            placeholder="Teljes név"
-            onChange={handleChange}
-          />
-          <FaPencil
-            className="icon-right"
-            onClick={() => handleEdit("fullname")}
-          />
-        </div>
-        {editingField === "fullname" && (
-          <button className="save-btn" onClick={handleSave}>
-            Mentés
-          </button>
-        )}
-
-      <div className="input-box">
-          <FaUser className="icon-left" />
-          <input
-            type="text"
-            value={editingField === "username" ? newData : userData.username}
-            disabled={editingField !== "username"}
-            placeholder="Felhasználónév"
-            onChange={handleChange}
-          />
-          <FaPencil
-            className="icon-right"
-            onClick={() => handleEdit("username")}
-          />
-        </div>
-        {editingField === "username" && (
-          <button className="save-btn" onClick={handleSave}>
-            Mentés
-          </button>
-        )}
-
-          <div className="input-box">
-          <FaEnvelope className="icon-left" />
-          <input
-            type="email"
-            value={editingField === "email" ? newData : userData.email}
-            disabled={editingField !== "email"}
-            placeholder="Email"
-            onChange={handleChange}
-          />
-          <FaPencil
-            className="icon-right"
-            onClick={() => handleEdit("email")}
-          />
-        </div>
-        {editingField === "email" && (
-          <button className="save-btn" onClick={handleSave}>
-            Mentés
-          </button>
-        )}
-
+        {/* Full Name */}
         <div className="input-box">
-          <FaLock className="icon-left" />
-          <input
-            type="password"
-            value={editingField === "password" ? newData : userData.password}
-            disabled={editingField !== "password"}
-            placeholder="Jelszó"
-            onChange={handleChange}
-          />
-          <FaPencil
-            className="icon-right"
-            onClick={() => handleEdit("password")}
-          />
+          <label className="field-label">Név</label>
+          <div className="input-row">
+            <BiIdCard className="icon-left" />
+            <input
+              type="text"
+              value={userData.fullname}
+              disabled
+              placeholder="Teljes név"
+            />
+            <FaPencil
+              className="icon-right"
+              onClick={() => handleEdit("fullname")}
+            />
+          </div>
         </div>
-        {editingField === "password" && (
+        {editingFields.includes("fullname") && (
+          <input
+            className="edit-field"
+            type="text"
+            value={newData.fullname || ""}
+            placeholder="Új teljes név"
+            onChange={(e) => handleChange("fullname", e.target.value)}
+          />
+        )}
+
+        {/* Username */}
+        <div className="input-box">
+          <label className="field-label">Felhasználónév</label>
+          <div className="input-row">
+            <FaUser className="icon-left" />
+            <input
+              type="text"
+              value={userData.username}
+              disabled
+              placeholder="Felhasználónév"
+            />
+            <FaPencil
+              className="icon-right"
+              onClick={() => handleEdit("username")}
+            />
+          </div>
+        </div>
+        {editingFields.includes("username") && (
+          <input
+            className="edit-field"
+            type="text"
+            value={newData.username || ""}
+            placeholder="Új felhasználónév"
+            onChange={(e) => handleChange("username", e.target.value)}
+          />
+        )}
+
+        {/* Email */}
+        <div className="input-box">
+          <label className="field-label">Email</label>
+          <div className="input-row">
+            <FaEnvelope className="icon-left" />
+            <input
+              type="email"
+              value={userData.email}
+              disabled
+              placeholder="Email"
+            />
+            <FaPencil
+              className="icon-right"
+              onClick={() => handleEdit("email")}
+            />
+          </div>
+        </div>
+        {editingFields.includes("email") && (
+          <input
+            className="edit-field"
+            type="email"
+            value={newData.email || ""}
+            placeholder="Új email"
+            onChange={(e) => handleChange("email", e.target.value)}
+          />
+        )}
+
+        {/* Password */}
+        <div className="input-box">
+          <label className="field-label">Jelszó</label>
+          <div className="input-row">
+            <FaLock className="icon-left" />
+            <input
+              type="password"
+              value={userData.password}
+              disabled
+              placeholder="Jelszó"
+            />
+            <FaPencil
+              className="icon-right"
+              onClick={() => handleEdit("password")}
+            />
+          </div>
+        </div>
+        {editingFields.includes("password") && (
+          <input
+            className="edit-field"
+            type="password"
+            value={newData.password || ""}
+            placeholder="Új jelszó"
+            onChange={(e) => handleChange("password", e.target.value)}
+          />
+        )}
+      </div>
+
+      <div className="button-container">
+        <button className="logout-btn" onClick={onLogout}>
+          Kijelentkezés
+        </button>
+        {editingFields.length > 0 && (
           <button className="save-btn" onClick={handleSave}>
             Mentés
           </button>
         )}
       </div>
-      <button className="logout-btn" onClick={onLogout}>
-        Kijelentkezés
-      </button>
       {message && <p className="message">{message}</p>}
+      <PawIcon />
     </div>
   );
 };

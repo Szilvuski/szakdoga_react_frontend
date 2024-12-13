@@ -106,14 +106,14 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                 >
                     <h3>Foglalási űrlap</h3>
                     <div className="form-group">
-                        <label>Szolgáltatás:</label>
+                        <label>Szolgáltatás megnevezése</label>
                         <select
                             name="serviceId"
                             value={formData.serviceId}
                             onChange={handleFormChange}
                             required
                         >
-                            <option value="">Válassz szolgáltatást</option>
+                            <option value="">Válasszon szolgáltatást</option>
                             {services.map((service) => (
                                 <option key={service.id} value={service.id}>
                                     {service.name}
@@ -122,7 +122,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Mikortól:</label>
+                        <label>Kezdő dátum</label>
                         <input
                             type="date"
                             name="startDate"
@@ -132,7 +132,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Meddig:</label>
+                        <label>Végső dátum</label>
                         <input
                             type="date"
                             name="endDate"
@@ -142,7 +142,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Állat neve:</label>
+                        <label>Melyik kisállathoz kívánja igénybe venni a szolgáltatást?</label>
                         <input
                             type="text"
                             name="petName"
@@ -152,7 +152,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Szitter:</label>
+                        <label>Választott kisállat-szitter</label>
                         <select
                             name="sitterId"
                             value={formData.sitterId}

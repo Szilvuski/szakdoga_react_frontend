@@ -77,7 +77,15 @@ function App() {
               />
             }
           />
-          <Route path="/pets" element={<Pets />} />
+          <Route
+            path="/pets"
+            element={
+              <Pets
+              user={user}
+              setUser={setUser}
+              />
+            }
+          />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
