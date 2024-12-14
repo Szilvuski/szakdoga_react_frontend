@@ -18,11 +18,11 @@ import './Styles/Transitions.css';
 function App() {
   const location = useLocation();
 
-  // Állapotok a bejelentkezett felhasználó kezeléséhez
+  
   const [loggedIn, setLoggedin] = useState(false);
-  const [user, setUser] = useState(null); // Felhasználói adatok
+  const [user, setUser] = useState(null);
 
-  // Bejelentkezési adatkezelés
+  
   const handleLogin = (userData) => {
     fetch(`http://127.0.0.1:8000/user/${userData.user_id}`)
       .then((response) => {
@@ -34,23 +34,23 @@ function App() {
       })
       .then((data) => {
         setLoggedin(true);
-        setUser(data); // Save the fetched user data
+        setUser(data);
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
   };
 
-  // Kijelentkezési logika
+  
   const handleLogout = () => {
     setLoggedin(false);
-    setUser(null); // Felhasználói adatok törlése
+    setUser(null); 
   };
 
   return (
     <TransitionGroup component={null}>
       <CSSTransition
-        key={location.pathname} // Animáció alapja az útvonal
+        key={location.pathname}
         timeout={500}
         classNames="fade"
       >
@@ -71,9 +71,9 @@ function App() {
             path="/profile"
             element={
               <Profile
-                user={user} // Felhasználói adatok továbbítása
+                user={user}
                 setUser={setUser}
-                onLogout={handleLogout} // Kijelentkezés kezelése
+                onLogout={handleLogout}
               />
             }
           />
@@ -89,7 +89,5 @@ function App() {
         </Routes>
       </CSSTransition>
     </TransitionGroup>
-  );
-}
-
+  );}
 export default App;

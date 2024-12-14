@@ -42,7 +42,6 @@ const Menu = (props) => {
   return(
     <div className="menu">
       <h1>Kérjük válasszon az alábbi lehetőségek közül</h1>
-      <h2>logged state : {props.loggedIn? "loggedIn" : "notLoggedIn"}</h2>
       <ul>
           <li><Link to="/about">Rólunk</Link></li>
           <li><Link to="/contact">Kapcsolat</Link></li>

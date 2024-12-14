@@ -48,7 +48,7 @@ const Pets = ({ user }) => {
         }
 
         // Add a new pet
-        fetch('http://127.0.0.1:8000/pet', {
+        fetch(`http://127.0.0.1:8000/pet`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -70,19 +70,19 @@ const Pets = ({ user }) => {
     };
 
     const handleDeletePet = (pet_id) => {
-        if (window.confirm("Biztosan törölni szeretné ezt a kisállatot?")) {
-            fetch(`http://127.0.0.1:8000/pet/${pet_id}`, {
-                method: 'DELETE',
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Hiba történt a kisállat törlésekor');
-                    }
-                    setPets(pets.filter(pet => pet.pet_id !== pet_id)); // Remove pet from the list
-                    setMessage('Kisállat sikeresen törölve!');
-                })
-                .catch(error => setMessage(error.message));
-        }
+      if (window.confirm("Biztosan törölni szeretné ezt a kisállatot?")) {
+        fetch(`http://127.0.0.1:8000/pet/${pet_id}`, {
+          method: 'DELETE',
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Hiba történt a kisállat törlésekor');
+            }
+            setPets(pets.filter(pet => pet.pet_id !== pet_id)); // Remove pet from the list
+            setMessage('Kisállat sikeresen törölve!');
+          })
+          .catch(error => setMessage(error.message));
+      }
     };
 
     return (

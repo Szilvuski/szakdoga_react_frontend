@@ -3,33 +3,55 @@ import { useNavigate } from 'react-router-dom';
 import '../Styles/Booking.css';
 import HomeIcon from "../Components/HomeIcon";
 
-const Booking = ({ loggedIn, setLoggedin }) => {
+const Booking = ({ loggedIn, user }) => {
     const navigate = useNavigate();
     const [showOptions, setShowOptions] = useState(true);
     const [showForm, setShowForm] = useState(false);
-    const [services, setServices] = useState([
-        { id: 1, name: "Walking Service" },
-        { id: 2, name: "Pet Sitting" },
-        { id: 3, name: "Grooming Service" },
-    ]);
-    const [sitters, setSitters] = useState([
-        { id: 1, name: "John Doe" },
-        { id: 2, name: "Jane Smith" },
-    ]);
+    const [services, setServices] = useState([]);
+    const [sitters, setSitters] = useState([]);
+    const [pets, setPets] = useState([]);
     const [formData, setFormData] = useState({
-        serviceId: "",
+        service_id: "",
         startDate: "",
         endDate: "",
-        petName: "",
-        sitterId: "",
+        pet_id: "",
+        sitter_id: "",
+        user_id: user?.user_id || null,
+        totalCost: 0,
+        status: "pending",
     });
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         if (loggedIn && localStorage.getItem("redirectTo") === "booking") {
             setShowOptions(false);
-            localStorage.removeItem("redirectTo"); // Clear the flag
+            localStorage.removeItem("redirectTo");
         }
     }, [loggedIn]);
+
+    useEffect(() => {
+        if (loggedIn) {
+            // Fetch services
+            fetch('http://127.0.0.1:8000/service')
+                .then(response => response.json())
+                .then(data => setServices(data))
+                .catch(error => console.error("Error fetching services:", error));
+
+            // Fetch sitters
+            fetch('http://127.0.0.1:8000/sitter')
+                .then(response => response.json())
+                .then(data => setSitters(data))
+                .catch(error => console.error("Error fetching sitters:", error));
+
+            // Fetch user's pets
+            if (user?.user_id) {
+                fetch(`http://127.0.0.1:8000/pet?user_id=${user.user_id}`)
+                    .then(response => response.json())
+                    .then(data => setPets(data))
+                    .catch(error => console.error("Error fetching pets:", error));
+            }
+        }
+    }, [loggedIn, user]);
 
     const handleOptionSelection = (option) => {
         if (option === "browse") {
@@ -51,15 +73,68 @@ const Booking = ({ loggedIn, setLoggedin }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const calculateTotalCost = () => {
+        const startDate = new Date(formData.startDate);
+        const endDate = new Date(formData.endDate);
+
+        if (endDate > startDate && formData.service_id) {
+            const selectedService = services.find(service => service.id === parseInt(formData.service_id));
+            if (selectedService) {
+                const days = (endDate - startDate) / (1000 * 60 * 60 * 24) + 1; // Include both start and end days
+                return days * selectedService.price;
+            }
+        }
+        return 0;
+    };
+
     const handleFormSubmit = (e) => {
         e.preventDefault();
+
         if (!loggedIn) {
             alert("Please log in before booking!");
             navigate('/login');
-        } else {
-            alert("Booking successfully submitted!");
-            // Add API call logic here
+            return;
         }
+
+        // Calculate total cost
+        const totalCost = calculateTotalCost();
+
+        // Submit booking
+        fetch('http://127.0.0.1:8000/reservation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                service_id: formData.service_id,
+                startDate: formData.startDate,
+                endDate: formData.endDate,
+                pet_id: formData.pet_id,
+                sitter_id: formData.sitter_id,
+                user_id: user.user_id,
+                status: formData.status,
+                totalCost: totalCost,
+            }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Hiba történt a foglalás beküldése során.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                setMessage("Foglalás sikeresen beküldve!");
+                setFormData({
+                    service_id: "",
+                    startDate: "",
+                    endDate: "",
+                    pet_id: "",
+                    sitter_id: "",
+                    totalCost: 0,
+                    status: "pending",
+                });
+            })
+            .catch(error => setMessage(error.message));
     };
 
     return (
@@ -100,29 +175,26 @@ const Booking = ({ loggedIn, setLoggedin }) => {
             )}
 
             {showForm && (
-                <form
-                    onSubmit={handleFormSubmit}
-                    className="booking-form"
-                >
+                <form onSubmit={handleFormSubmit} className="booking-form">
                     <h3>Foglalási űrlap</h3>
                     <div className="form-group">
-                        <label>Szolgáltatás megnevezése</label>
+                        <label>Szolgáltatás</label>
                         <select
-                            name="serviceId"
-                            value={formData.serviceId}
+                            name="service_id"
+                            value={formData.service_id}
                             onChange={handleFormChange}
                             required
                         >
                             <option value="">Válasszon szolgáltatást</option>
                             {services.map((service) => (
-                                <option key={service.id} value={service.id}>
-                                    {service.name}
+                                <option key={service.service_id} value={service.service_id}>
+                                    {service.serviceName}
                                 </option>
                             ))}
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Kezdő dátum</label>
+                        <label>Mikortól</label>
                         <input
                             type="date"
                             name="startDate"
@@ -132,7 +204,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Végső dátum</label>
+                        <label>Meddig</label>
                         <input
                             type="date"
                             name="endDate"
@@ -143,26 +215,32 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                     </div>
                     <div className="form-group">
                         <label>Melyik kisállathoz kívánja igénybe venni a szolgáltatást?</label>
-                        <input
-                            type="text"
-                            name="petName"
-                            value={formData.petName}
+                        <select
+                            name="pet_id"
+                            value={formData.pet_id}
                             onChange={handleFormChange}
                             required
-                        />
+                        >
+                            <option value="">Válasszon kisállatot</option>
+                            {pets.map((pet) => (
+                                <option key={pet.pet_id} value={pet.pet_id}>
+                                    {pet.petName}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="form-group">
-                        <label>Választott kisállat-szitter</label>
+                        <label>Szitter</label>
                         <select
-                            name="sitterId"
-                            value={formData.sitterId}
+                            name="sitter_id"
+                            value={formData.sitter_id}
                             onChange={handleFormChange}
                             required
                         >
                             <option value="">Válassz szittert</option>
                             {sitters.map((sitter) => (
                                 <option key={sitter.id} value={sitter.id}>
-                                    {sitter.name}
+                                    {sitter.sitterName}
                                 </option>
                             ))}
                         </select>
@@ -170,6 +248,7 @@ const Booking = ({ loggedIn, setLoggedin }) => {
                     <button type="submit" className="submit-button">
                         Foglalás beküldése
                     </button>
+                    {message && <p className="message">{message}</p>}
                 </form>
             )}
             <HomeIcon />
